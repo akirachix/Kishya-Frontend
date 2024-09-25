@@ -13,6 +13,8 @@ export const addUser = async ({ firstName, lastName, email, password }: { firstN
 
         if (!response.ok) {
             const text = await response.text();
+            console.log(text);
+            
             if (response.status >= 500) {
                 throw new Error('Please try again later.');
             } else if (response.status === 400) {

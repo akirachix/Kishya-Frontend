@@ -1,7 +1,7 @@
 
 
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FiCheckCircle, FiEye, FiEyeOff, FiX } from 'react-icons/fi';
@@ -27,16 +27,12 @@ const AddUserData = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const [isUserAdded, setIsUserAdded] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
  
   const submitUser = async (userData: UserData) => {
-    setLoading(true);
     setApiError(null); 
-    setIsUserAdded(false);
     try {
       const response = await addUser({
         firstName: userData.firstName,
