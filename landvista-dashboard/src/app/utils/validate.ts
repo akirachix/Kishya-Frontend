@@ -13,7 +13,6 @@ export const addUser = async ({ firstName, lastName, email, password }: { firstN
 
         if (!response.ok) {
             const text = await response.text();
-            console.error('Full response from server:', text);
             if (response.status >= 500) {
                 throw new Error('Please try again later.');
             } else if (response.status === 400) {
@@ -25,7 +24,6 @@ export const addUser = async ({ firstName, lastName, email, password }: { firstN
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Error during adding a new user:', error);
         throw new Error((error as Error).message || 'An unexpected error occurred. Please try again.');
     }
 };
