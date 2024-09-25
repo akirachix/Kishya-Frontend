@@ -22,7 +22,7 @@ const validationSchema = yup.object().shape({
 
 type FormData = yup.InferType<typeof validationSchema>;
 
-const FormPreview = () => {
+const AddUserData = () => {
   const {register,handleSubmit,formState: { errors, isSubmitting },} = useForm<FormData>({
     resolver: yupResolver(validationSchema),
   });
@@ -157,7 +157,7 @@ const FormPreview = () => {
     </div>
   );
 };
-export default FormPreview;
+export default AddUserData;
 
 
 
