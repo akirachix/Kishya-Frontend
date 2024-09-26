@@ -49,16 +49,15 @@ const Feedback = () => {
         </div>
         <div className="flex space-x-8">
           
-          <div className="flex-grow">
-            <h2 className="text-2xl font-bold mb-4">Survey Responses</h2>
+          <div className="flex-grow py-8">
             <div className="h-[400px] bg-white border border-gray-200 rounded-lg shadow-md p-4">
               <ResponseChart />
             </div>
           </div>
 
 
-          <div className="w-64">
-            <div className="p-6 border-4 border-[#CC8C6B] rounded-[20px] bg-gray-100">
+          <div className="w-64 py-36">
+            <div className="p-8 border-4 border-[#CC8C6B] rounded-[20px] bg-gray-100 ml-24 w-full">
               <h3 className="text-2xl font-bold mb-4">Overview</h3>
               <p className="text-[#1D9CB4] text-lg font-semibold mb-2">
                 Top issues identified

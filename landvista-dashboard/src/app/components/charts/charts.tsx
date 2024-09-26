@@ -143,7 +143,7 @@ const SurveyChart = () => {
         font: {
           size: 24,
         },
-        color: '#000000',
+        color: 'black',
       },
       tooltip: {
         callbacks: {
