@@ -1,3 +1,5 @@
+import { error, log } from "console";
+
 export const displayAllUsers = async (endpoint: string, options = {}) => {
     try {
       const response = await fetch(endpoint, options);
@@ -9,5 +11,7 @@ export const displayAllUsers = async (endpoint: string, options = {}) => {
     
     catch (error) {
       throw new Error('Failed to fetch data');
+    
     }
+    
   };
