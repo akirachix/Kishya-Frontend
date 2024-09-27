@@ -7,3 +7,15 @@
        font-family: 'Poppins', sans-serif;
      }
 
+.bg-low { background-color: green; }
+.bg-moderate { background-color: orange; }
+.bg-high { background-color: red; }
+.bg-very-high { background-color: darkred; }
+.bg-extreme { background-color: darkred; }
+.text-low { color: green; }
+.text-moderate { color: orange; }
+.text-high { color: red; }
+.text-very-high { color: darkred; }
+.text-extreme { color: darkred; }
+ 
+

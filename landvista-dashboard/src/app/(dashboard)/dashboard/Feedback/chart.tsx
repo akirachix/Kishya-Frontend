@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { ChartOptions } from 'chart.js';
 import { Chart as ChartJS, LinearScale, CategoryScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import { fetchFeedback } from '@/app/utils/fetchfeedback';  
+import { fetchFeedback } from '../utils/fetchfeedback';
 
 ChartJS.register(
   LinearScale,

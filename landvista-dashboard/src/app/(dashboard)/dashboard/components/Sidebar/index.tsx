@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { FaTachometerAlt, FaBullseye, FaThumbsUp, FaUserCircle } from 'react-icons/fa';

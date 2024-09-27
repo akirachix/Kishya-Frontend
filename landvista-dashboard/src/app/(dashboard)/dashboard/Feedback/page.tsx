@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ResponseChart from "./chart";
+import Layout from '../components/Layout';
+
 
 const Feedback = () => {
   const [data, setData] = useState(null);

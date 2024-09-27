@@ -1,14 +1,15 @@
-import Layout from "./components/Layout";
-import Feedback from "./Feedback/page";
+
+import MapDisplay from "./(web_portal)/web_portal/webPortal/components/MapDisplay";
+
 
 
 export default function Home() {
  return (
-   <Layout>
-     <div>
-      <Feedback/>
-   </div>
-   </Layout>
+  <div>
+<MapDisplay/>
+  </div>  
+ 
+
   
  );
 }
