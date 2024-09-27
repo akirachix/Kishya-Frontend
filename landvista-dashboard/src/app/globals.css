@@ -2,3 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+
+.bg-low { background-color: green; }
+.bg-moderate { background-color: orange; }
+.bg-high { background-color: red; }
+.bg-very-high { background-color: darkred; }
+.bg-extreme { background-color: darkred; }
+.text-low { color: green; }
+.text-moderate { color: orange; }
+.text-high { color: red; }
+.text-very-high { color: darkred; }
+.text-extreme { color: darkred; }
+ 
+
+
+
