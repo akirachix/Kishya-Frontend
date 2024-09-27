@@ -199,7 +199,7 @@ const SurveyChart = () => {
   };
 
   const renderLegend = () => (
-    <div className="mb-4 ml-48 nh:mb-2 nhm:mb-2">
+    <div className="mb-4 ml-28 nh:mb-2 nhm:mb-2">
       <div className="flex gap-2 font-poppins">
         <span className="inline-block w-4 h-4 bg-[#00A6FB]"></span>
         <span className='text-lg'>Yes Responses</span>

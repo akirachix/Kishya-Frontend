@@ -13,22 +13,43 @@ export async function POST(request: NextRequest) {
             body: JSON.stringify({ first_name, last_name, password, email })
         });
 
-        const textResponse = await response.text();
-        console.log('Backend response:', textResponse, 'Status:', response.status);
-        
-        const result = JSON.parse(textResponse);
-        console.log('User created successfully:', result);
+        if(!response.ok){
+            const textResponse = await response.text();
+            console.log('Backend response:', textResponse, 'Status:', response.status);
+           
+            return NextResponse.json(textResponse, { status: 400 });
+        }
+
+     
+      
+        const result = await response.json();
         return NextResponse.json(result, { status: 201 });
     } catch (error) {
-        console.error('Error during signup:', error);
+        console.error(error);
         return NextResponse.json(
             { error: 'An unexpected error occurred. Please try again later.' },
             { status: 500 }
         );
     }
 
-
-
-
-
 }
+
+
+
+export async function GET() {
+    try{
+        const response = await fetch(`${baseURL}/api/users`, {
+            cache:'no-cache'
+        });
+        const data = await response.json();
+        return new Response(JSON.stringify(data),{
+            status:200,
+        });
+    } catch (error){
+        return new Response((error as Error).message,{
+            status:500
+        });
+    }
+}
+
+
