@@ -1,8 +1,6 @@
-
-
-export const fetchFeedback = async () => {
+export const fetchFeedback = async (filter: string) => {
   try {
-    const response = await fetch('/api/feedback');
+    const response = await fetch(`/api/feedback?filter=${filter}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }

@@ -4,8 +4,6 @@ import { Bar } from 'react-chartjs-2';
 import { ChartOptions } from 'chart.js';
 import { Chart as ChartJS, LinearScale, CategoryScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { fetchFeedback } from '@/app/utils/fetchfeedback';  
-import { string } from 'prop-types';
-import Feedback from './page';
 
 ChartJS.register(
   LinearScale,
@@ -47,12 +45,11 @@ const SurveyChart = () => {
     ],
   });
   const [isLoading, setIsLoading] = useState(true);
-  const [, setHasData] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchFeedback(); 
+        const response = await fetchFeedback('');  
         console.log("Fetched Data:", response);
   
         const dataObject = response;
@@ -67,21 +64,19 @@ const SurveyChart = () => {
         if (dataArray && dataArray.length > 0) {
           const processedData = processChartData(dataArray);
           setChartData(processedData);
-          setHasData(true);
         } else {
           setChartData(getDefaultChartData());
-          setHasData(false);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
         setChartData(getDefaultChartData());
-        setHasData(false);
       } finally {
         setIsLoading(false);
       }
     };
     fetchData();
   }, []);
+  
   
   const processChartData = (data: Response[]) => {
     const questionNumbers = data.map((_, index) => `Question ${index + 1}`);
@@ -160,7 +155,6 @@ const SurveyChart = () => {
           },
         },
       },
-      
     },
     scales: {
       x: {
@@ -181,7 +175,7 @@ const SurveyChart = () => {
       y: {
         title: {
           display: true,
-          color:'black',
+          color: 'black',
           text: 'Number of Responses',
           font: {
             size: 24,
@@ -191,22 +185,28 @@ const SurveyChart = () => {
           font: {
             size: 24,
           },
+          stepSize: 1,
+          callback: function(value: number | string) {
+            if (typeof value === 'number' && Math.floor(value) === value) {
+              return value.toString();
+            }
+            return null;
+          }
         },
-        beginAtZero: true,
+        min: 0,
       },
     },
   };
-  
 
   const renderLegend = () => (
-    <div className="mb-4 ml-48">
-      <div className="flex gap-2 ml-48">
-        <span className="inline-block w-4 h-4 bg-[#00A6FB] "></span>
+    <div className="mb-4 ml-48 nh:mb-2 nhm:mb-2">
+      <div className="flex gap-2 font-poppins">
+        <span className="inline-block w-4 h-4 bg-[#00A6FB]"></span>
         <span className='text-lg'>Yes Responses</span>
       </div>
-      <div className="flex gap-2 ml-38">
-        <span className="inline-block w-4 h-4 bg-[#FFB600] ml-48"></span>
-        <span  className='text-lg'>No Responses</span>
+      <div className="flex gap-2 ">
+        <span className="inline-block w-4 h-4 bg-[#FFB600]"></span>
+        <span className='text-lg'>No Responses</span>
       </div>
     </div>
   );
@@ -214,7 +214,7 @@ const SurveyChart = () => {
   if (isLoading) {
     return <div>Loading chart...</div>;
   }
-  
+
   console.log("Chart Data in Render:", chartData); 
   
   return (
@@ -223,6 +223,6 @@ const SurveyChart = () => {
       <Bar data={chartData} options={options} />
     </div>
   );
-}
+};
 
 export default SurveyChart;
