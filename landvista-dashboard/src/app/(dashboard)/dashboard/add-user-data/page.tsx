@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FiCheckCircle, FiEye, FiEyeOff, FiX } from 'react-icons/fi';
 import * as yup from 'yup';
-import addUser from '../../utils/adduser';
-import Layout from '../Layout';
+import addUser from '../utils/adduser';
+import Layout from '../components/Layout';
 import { useRouter } from 'next/navigation'; 
 
 interface UserData {

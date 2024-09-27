@@ -1,6 +1,6 @@
 import Layout from "./components/Layout";
 import Feedback from "./Feedback/page";
-import AddUserData from "./components/AddUserData";
+import AddUserData from "./add-user-data/page";
 
 export default function Home() {
     return (

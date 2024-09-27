@@ -37,12 +37,12 @@ const Feedback = () => {
 
   return (
     <Layout>
-    <div className="flex flex-col items-center w-full p-8 bg-white">
+    <div className="flex flex-col items-center bg-white ml-32">
       <h1 className="text-4xl font-bold mb-8">User Feedback</h1>
       <div className="w-full max-w-6xl">
         <div className="mb-8 mr-24">
-          <h2 className="text-2xl font-bold mb-4  font-family: 'Poppins'">Filter metrics by:</h2>
-          <div className="flex space-x-4">
+          <h2 className="text-2xl font-bold mb-4  ml-32 font-family: 'Poppins'">Filter metrics by:</h2>
+          <div className="flex space-x-4 ml-28">
             <button
               className={`px-6 py-2 rounded-full text-white font-bold ${
                 filter === "daily" ? "bg-[#3e7882]" : "bg-[#CC8C6B]"
@@ -71,12 +71,12 @@ const Feedback = () => {
         </div>
         <div className="flex space-x-4">
           <div className="flex-grow py-8">
-            <div className="h-[400px] bg-white border border-gray-200 rounded-lg shadow-md p-4">
+            <div className="h-[300px] bg-white border border-gray-200 rounded-lg shadow-md p-4">
               <ResponseChart />
             </div>
           </div>
           <div className="w-64 py-2 flex flex-col space-y-4 ml-28">
-          <div className="p-6 border-4 border-[#CC8C6B] rounded-[30px] bg-gray-100 w-full  mx-auto ml-28"> 
+          <div className="p-6 border-4 border-[#CC8C6B] rounded-[30px] bg-gray-100 w-full  mx-auto ml-12"> 
   <h4 className="text-xl font-bold mb-4  font-family: 'Poppins'">Legend:</h4>
   <div className="space-y-4">
     <p className="text-base">

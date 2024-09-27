@@ -43,7 +43,6 @@ const UserProfile: React.FC = () => {
               <p>No users available.</p>
             ) : (
               <div className="lg:h-auto">
-                {/* Center the table and adjust padding */}
                 <table className="min-w-full bg-white shadow-lg rounded-md mt-8 mx-auto ml-8">
                   <thead className="bg-teal-600 text-white">
                     <tr>
@@ -84,7 +83,7 @@ const UserProfile: React.FC = () => {
             onPageChange={handlePageChange}
           />
 
-          <Link href="/add-users-data/">
+          <Link href="/dashboard/add-user-data">
             <button className="fixed top-4 right-4 bg-teal-600 text-white p-4 rounded-full shadow-md hover:bg-teal-700 transition duration-300">
               <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 lg:h-4 lg:w-4 xl:h-4 xl:w-4">
                 <path
