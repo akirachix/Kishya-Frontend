@@ -33,7 +33,6 @@ const SidebarNav = () => {
           </ul>
         </nav>
       </div>
-
       <div>
         <ul className="space-y-6">
           <SidebarItem Icon={FaUserCircle} label="Profile" path="/user-profiles" isActive={false} />
@@ -42,5 +41,4 @@ const SidebarNav = () => {
     </div>
   );
 };
-
 export default SidebarNav;

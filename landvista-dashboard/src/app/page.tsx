@@ -1,13 +1,10 @@
-import Layout from "./components/Layout";
 
-
+import MapDisplay from "./(web_portal)/web_portal/webPortal/components/MapDisplay";
 export default function Home() {
  return (
-   <Layout>
-     <div>
-    
-   </div>
-   </Layout>
+<div>
+  <MapDisplay/>
+</div>
   
  );
 }
