@@ -27,7 +27,7 @@ const SidebarNav = () => {
 
         <nav>
           <ul className="space-y-6">
-            <SidebarItem Icon={FaTachometerAlt} label="Dashboard" path="/dashboard//" isActive={false} />
+            <SidebarItem Icon={FaTachometerAlt} label="Dashboard" path="" isActive={false} />
             <SidebarItem Icon={FaBullseye} label="Data Accuracy" path="/ModelAccuracy" isActive={false} />
             <SidebarItem Icon={FaThumbsUp} label="User Feedback" path="/dashboard/Feedback" isActive={false} />
             
