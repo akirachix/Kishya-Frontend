@@ -1,4 +1,4 @@
-"use client"
+
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import usePostFeedback from '../../hooks/usePostFeedback';
