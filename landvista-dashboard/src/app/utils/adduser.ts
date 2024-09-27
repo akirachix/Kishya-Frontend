@@ -18,7 +18,7 @@ export const addUser = async ({ firstName, lastName, email, password }: { firstN
             if (response.status >= 500) {
                 throw new Error('Please try again later.');
             } else if (response.status === 400) {
-                throw new Error('A user with this email already exists.');
+                throw new Error();
             } else {
                 throw new Error('Something went wrong. Please try again.');
             }
