@@ -1,4 +1,4 @@
-import { error, log } from "console";
+
 
 export const displayAllUsers = async (endpoint: string, options = {}) => {
     try {
@@ -9,7 +9,7 @@ export const displayAllUsers = async (endpoint: string, options = {}) => {
       return await response.json();
     } 
     
-    catch (error) {
+    catch {
       throw new Error('Failed to fetch data');
     
     }
