@@ -22,6 +22,10 @@ const config: Config = {
           '25px': '25px',
         },
       },
+      screens: {
+        'nh': {'min': '1000px', 'max': '1279px'},
+        'nhm':{'min': '1280px', 'max':'1280px'},
+      },
     },
   },
   plugins: [],

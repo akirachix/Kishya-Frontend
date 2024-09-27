@@ -1,10 +1,15 @@
-// import Layout from "./components/Layout";
-// import AddUserData from "./components/AddUserData";
-import MapDisplay from "./webPortal/components/MapDisplay";
+
+import MapDisplay from "./(web_portal)/web_portal/webPortal/components/MapDisplay";
+
+
+
 export default function Home() {
  return (
   <div>
 <MapDisplay/>
   </div>  
+ 
+
+  
  );
 }

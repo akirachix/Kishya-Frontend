@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import usePostFeedback from '@/app/(web_portal)/web_portal/webPortal/hooks/usePostFeedback';
+import usePostFeedback from '../../hooks/usePostFeedback';
 
 const questions: Record<number, string> = {
     1: "Would you recommend our services to friends and family?",

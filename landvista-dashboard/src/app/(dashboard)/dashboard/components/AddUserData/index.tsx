@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FiCheckCircle, FiEye, FiEyeOff, FiX } from 'react-icons/fi';
 import * as yup from 'yup';
-import addUser from '@/app/utils/validate'; 
+import addUser from '../../utils/validate';
 interface UserData {
   firstName: string;
   lastName: string;
