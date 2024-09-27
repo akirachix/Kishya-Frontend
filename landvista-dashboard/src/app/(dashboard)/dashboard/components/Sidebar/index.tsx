@@ -36,7 +36,7 @@ const SidebarNav = () => {
       </div>
       <div>
         <ul className="space-y-6">
-          <SidebarItem Icon={FaUserCircle} label="Profile" path="/dashboard/user-profiles" isActive={false} />
+          <SidebarItem Icon={FaUserCircle} label="Users" path="/dashboard/user-profiles" isActive={false} />
         </ul>
       </div>
     </div>

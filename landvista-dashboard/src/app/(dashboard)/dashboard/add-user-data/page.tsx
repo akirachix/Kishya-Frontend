@@ -49,7 +49,7 @@ const AddUserData = () => {
         setShowSuccessPopup(true);
         setTimeout(() => {
           setShowSuccessPopup(false);
-          router.push('/user-profiles'); 
+          router.push('/dashboard/user-profiles'); 
         }, 3000); 
       }
     }

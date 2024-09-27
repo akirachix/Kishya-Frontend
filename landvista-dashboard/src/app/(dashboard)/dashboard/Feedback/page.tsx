@@ -71,7 +71,7 @@ const Feedback = () => {
         </div>
         <div className="flex space-x-4">
           <div className="flex-grow py-8">
-            <div className="h-[300px] bg-white border border-gray-200 rounded-lg shadow-md p-4">
+            <div className="h-[300px] bg-white border border-gray-200 rounded-lg shadow-md p-4 ml-16">
               <ResponseChart />
             </div>
           </div>
