@@ -5,7 +5,7 @@ import Layout from '../components/Layout';
 
 
 const Feedback = () => {
-  const [data, setData] = useState(null);
+  const [data] = useState(null);
   const [filter, setFilter] = useState("daily");
 
   useEffect(() => {
@@ -36,6 +36,7 @@ const Feedback = () => {
   };
 
   return (
+    <Layout>
     <div className="flex flex-col items-center w-full p-8 bg-white">
       <h1 className="text-4xl font-bold mb-8">User Feedback</h1>
       <div className="w-full max-w-6xl">
@@ -88,7 +89,7 @@ const Feedback = () => {
     </p>
     <p className="text-base">
       <span className="font-semibold  font-family: 'Poppins'">Question 3: </span>
-      Did you find LandVista's features and language easy to understand?
+      Did you find LandVistas features and language easy to understand?
     </p>
     <p className="text-base">
       <span className="font-semibold  font-family: 'Poppins'">Question 4: </span>
@@ -108,6 +109,7 @@ const Feedback = () => {
         </div>
       </div>
     </div>
+    </Layout>
   );
 };
 
