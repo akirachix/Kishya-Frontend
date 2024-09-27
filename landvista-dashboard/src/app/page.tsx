@@ -1,5 +1,5 @@
 import Layout from "./components/Layout";
-import Feedback from "./components/charts";
+import Feedback from "./Feedback/page";
 
 
 export default function Home() {

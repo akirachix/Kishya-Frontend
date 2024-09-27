@@ -1,8 +1,11 @@
+"use client"
 import { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { ChartOptions } from 'chart.js';
 import { Chart as ChartJS, LinearScale, CategoryScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { fetchFeedback } from '@/app/utils/fetchfeedback';  
+import { string } from 'prop-types';
+import Feedback from './page';
 
 ChartJS.register(
   LinearScale,
@@ -146,59 +149,64 @@ const SurveyChart = () => {
         color: 'black',
       },
       tooltip: {
+        bodyFont: {
+          size: 18,  
+        },
         callbacks: {
           title: (context) => {
             const dataIndex = context[0].dataIndex;
-            const originalData = chartData.datasets[0].data[dataIndex] !== undefined ? 
-              chartData.datasets[0].originalData?.[dataIndex] : 
-              "Question not available";
-            return originalData;
-          }
-        }
-      }
+            const questionLabel = chartData.labels[dataIndex] || "Question not available";
+            return questionLabel;
+          },
+        },
+      },
+      
     },
     scales: {
       x: {
         title: {
           display: true,
+          color:'black',
           text: 'Question Number',
           font: {
-            size: 20,
+            size: 24,
           },
         },
         ticks: {
           font: {
-            size: 14,
+            size: 24,
           },
         },
       },
       y: {
         title: {
           display: true,
+          color:'black',
           text: 'Number of Responses',
           font: {
-            size: 20,
+            size: 24,
           },
         },
         ticks: {
           font: {
-            size: 14,
+            size: 24,
           },
         },
         beginAtZero: true,
       },
     },
   };
+  
 
   const renderLegend = () => (
     <div className="mb-4 ml-48">
       <div className="flex gap-2 ml-48">
         <span className="inline-block w-4 h-4 bg-[#00A6FB] "></span>
-        <span>Yes Responses</span>
+        <span className='text-lg'>Yes Responses</span>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 ml-38">
         <span className="inline-block w-4 h-4 bg-[#FFB600] ml-48"></span>
-        <span>No Responses</span>
+        <span  className='text-lg'>No Responses</span>
       </div>
     </div>
   );
@@ -210,7 +218,7 @@ const SurveyChart = () => {
   console.log("Chart Data in Render:", chartData); 
   
   return (
-    <div className="bg-white shadow rounded-lg p-6 w-[900px] h-[600px]">
+    <div className="bg-white shadow rounded-lg p-8 w-[900px] h-[600px] mr-8">
       {renderLegend()}
       <Bar data={chartData} options={options} />
     </div>

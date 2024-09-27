@@ -1,14 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import ResponseChart from "./charts";
+import ResponseChart from "./chart";
+import Layout from "@/app/components/Layout";
+import SurveyChart from "./chart";
 
 const Feedback = () => {
   const [data, setData] = useState(null);
+  const [filter, setFilter] = useState("daily");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("api/responses", {
+        const response = await fetch(`api/responses?filter=${filter}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -17,6 +20,7 @@ const Feedback = () => {
         });
         console.log("Response status:", response.status);
         if (!response.ok) {
+          throw new Error("Failed to fetch data");
         }
         const result = await response.json();
         console.log("Fetched data:", result);
@@ -26,37 +30,55 @@ const Feedback = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [filter]);
+
+  const handleFilterChange = (selectedFilter: string) => {
+    setFilter(selectedFilter);
+  };
+  <SurveyChart/>
+
 
   return (
+    <Layout>
     <div className="flex flex-col items-center w-full p-8 bg-white">
       <h1 className="text-4xl font-bold mb-8">User Feedback</h1>
       <div className="w-full max-w-6xl">
-  
-        <div className="mb-8">
+        <div className="mb-8 mr-24">
           <h2 className="text-2xl font-bold mb-4">Filter metrics by:</h2>
           <div className="flex space-x-4">
-            <button className="bg-[#CC8C6B] text-white px-8 py-2 rounded-full text-lg hover:bg-[#3e7882] transition">
+            <button
+              className={`${
+                filter === "daily" ? "bg-[#3e7882]" : "bg-[#CC8C6B]"
+              } text-white px-8 py-2 rounded-full text-lg hover:bg-[#3e7882] transition`}
+              onClick={() => handleFilterChange("daily")}
+            >
               Daily
             </button>
-            <button className="bg-[#CC8C6B] text-white px-8 py-2 rounded-full text-lg hover:bg-[#3e7882] transition">
+            <button
+              className={`${
+                filter === "weekly" ? "bg-[#3e7882]" : "bg-[#CC8C6B]"
+              } text-white px-8 py-2 rounded-full text-lg hover:bg-[#3e7882] transition`}
+              onClick={() => handleFilterChange("weekly")}
+            >
               Weekly
             </button>
-            <button className="bg-[#CC8C6B] text-white px-8 py-2 rounded-full text-lg hover:bg-[#3e7882] transition">
+            <button
+              className={`${
+                filter === "monthly" ? "bg-[#3e7882]" : "bg-[#CC8C6B]"
+              } text-white px-8 py-2 rounded-full text-lg hover:bg-[#3e7882] transition`}
+              onClick={() => handleFilterChange("monthly")}
+            >
               Monthly
             </button>
           </div>
         </div>
-        <div className="flex space-x-8">
-          
+        <div className="flex space-x-4"> 
           <div className="flex-grow py-8">
             <div className="h-[400px] bg-white border border-gray-200 rounded-lg shadow-md p-4">
               <ResponseChart />
             </div>
           </div>
-
-
-          <div className="w-64 py-36">
+          <div className="w-64 py-24">
             <div className="p-8 border-4 border-[#CC8C6B] rounded-[20px] bg-gray-100 ml-24 w-full">
               <h3 className="text-2xl font-bold mb-4">Overview</h3>
               <p className="text-[#1D9CB4] text-lg font-semibold mb-2">
@@ -75,6 +97,8 @@ const Feedback = () => {
         )}
       </div>
     </div>
+    </Layout>
+
   );
 };
 
