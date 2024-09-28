@@ -37,7 +37,7 @@ const DataAccuracyDashboard = () => {
           </div>
         </div>
   
-        <div className="p-4 rounded-lg border-4 border-teal-500 text-black font-poppins mt-32 leading-relaxed w-104 ml-32">
+        <div className="p-4 rounded-lg border-4 border-teal-500 text-black font-poppins mt-64 leading-relaxed w-104 ml-32">
           <p>
             The chart illustrates the model&#39;s accuracy over a series of months,
             indicating a clear trend in performance improvement. Initially, the model
