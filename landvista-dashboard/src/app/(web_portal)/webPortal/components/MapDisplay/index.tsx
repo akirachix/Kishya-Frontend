@@ -1,10 +1,10 @@
 'use client';
 import { useState } from 'react';
-import SearchBar from '../../components/SearchBar';
+import SearchBar from '../SearchBar';
 import { useFetchLocationData } from '../../hooks/useFetchLocationData';
-import FloodRiskLegend from '../../components/Legend';
-import MapComponent from '../../components/MapComponent';
-import InfoPanel from '../../components/InfoPanel';
+import FloodRiskLegend from '../Legend';
+import MapComponent from '../MapComponent';
+import InfoPanel from '../InfoPanel';
 import { ToastContainer, toast } from 'react-toastify'; 
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
