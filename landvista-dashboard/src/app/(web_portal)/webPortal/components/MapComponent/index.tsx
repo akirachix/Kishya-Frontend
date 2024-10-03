@@ -60,9 +60,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
               <Polygon
                 paths={boundary}
                 options={{
-                  fillColor: "black",
+                  fillColor: "teal",
                   fillOpacity: 0.3,
-                  strokeColor: "gray",
+                  strokeColor: "teal",
                   strokeOpacity: 1,
                   strokeWeight: 5,
                 }}

@@ -84,29 +84,29 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
       ${isSmallScreen ? 'rounded-b-none fixed bottom-0 left-0 right-0' : 'absolute top-20 left-4'}
       ${isSmallScreen ? (isPanelMinimized ? 'w-16 h-16 overflow-hidden' : 'w-full h-2/3 overflow-y-auto') : 'w-[400px] h-[830px] '} 
       bg-white rounded-[50px] shadow-lg
-      border-2 border-teal-600
+      border-4 border-teal-600
       flex flex-col 
       z-10 
     `} style={{ borderRadius: '20px' }}>
-     <div className={`bg-white rounded-[50px] p-4 flex justify-center items-center ${isSmallScreen ? 'h-[160px]' : 'h-[180px]'}`}>
+     <div className={`bg-teal-600 rounded-t-[15px] p-4 flex justify-center items-center ${isSmallScreen ? 'h-[160px]' : 'h-[180px]'}`}>
 
      <Image
-  src="/media/landvista.png" 
+  src="/media/whitelogo.png" 
   alt="LandVista Logo"
-  width={isSmallScreen ? (isPanelMinimized ? 200 : 80) : 90} 
+  width={isSmallScreen ? (isPanelMinimized ? 200 : 90) : 200} 
   height={isSmallScreen ? (isPanelMinimized ? 200 : 80) : 250}
   className="object-contain"
 />
       </div>
 
-      <div className={`bottom-0 rounded-b-none bg-teal-600 p-6 text-white flex-1 ${isSmallScreen && isPanelMinimized ? 'hidden' : ''} flex flex-col`}>
+      <div className={`bottom-0 rounded-b-none text-teal-600 p-6 bg-white flex-1 ${isSmallScreen && isPanelMinimized ? 'hidden' : ''} flex flex-col`}>
       
     <p className="text-lg mb-2 font-semibold">Location <br/> <span className="font-light">{location}</span></p>
 
     {location === "Nairobi" ? (
         <>
             <p className="text-lg mb-2 font-semibold text-justify">Total Land Area <br></br><span className="font-light">{defaultLandArea}</span></p>
-            <p className="text-lg mb-2 font-semibold text-justify">Average Rainfall <br></br> <span className="font-light">{defaultAverageRainfall}</span></p>
+            <p className="text-lg mb-2 font-semibold text-justify">Average Annual Rainfall <br></br> <span className="font-light">{defaultAverageRainfall}</span></p>
             <p className="text-lg mb-2 text-justify font-semibold ">Disclaimer <br></br><span className="font-light">{defaultDisclaimer}</span></p>
         </>
     ) : (
@@ -121,7 +121,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
 </div>
 
   {!isSmallScreen && (
- <div className={`mt-auto flex flex-col sm:flex-row justify-between p-4 ${isSmallScreen && isPanelMinimized ? 'hidden' : ''}`}>
+ <div className={`mt-auto flex flex-col sm:flex-row justify-between p-4 bg-teal-600 rounded-b-[15px] ${isSmallScreen && isPanelMinimized ? 'hidden' : ''}`}>
  <button onClick={handleDownload} className="bg-custom-dark-orange text-white px-4 py-2 rounded-full flex items-center justify-center">
    <Download size={20} className="mr-2" /> Download
  </button>
