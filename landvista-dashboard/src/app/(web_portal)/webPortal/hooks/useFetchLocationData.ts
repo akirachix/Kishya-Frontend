@@ -8,11 +8,14 @@ export const useFetchLocationData = (location: string) => {
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        if (!location) {
-            setError('Location is required.');
-            return;
-        }
-
+      
+            if (!location) {
+                setError('Location is required.');
+                setData(null)
+                setLoading(false)
+                return;
+            } 
+        
         const fetchData = async () => {
             setLoading(true);
             setError(null);

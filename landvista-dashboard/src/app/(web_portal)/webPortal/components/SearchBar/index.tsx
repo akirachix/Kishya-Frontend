@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 interface SearchBarProps {
     onSearch: (location: string) => void;
+    onError: (error: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onError }) => { 
     const [input, setInput] = useState('');
-    const [isSmallScreen, setIsSmallScreen] = useState(false); // Initialize as false
+    const [isSmallScreen, setIsSmallScreen] = useState(false); 
 
     useEffect(() => {
         const handleResize = () => {
@@ -22,7 +23,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         e.preventDefault();
         if (input.trim()) {
             onSearch(input.trim());
-           
+            onError(''); 
+        } else {
+            onError('Location is required.'); 
         }
     };
 
