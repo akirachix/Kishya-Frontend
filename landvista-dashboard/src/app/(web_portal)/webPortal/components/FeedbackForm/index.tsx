@@ -55,11 +55,11 @@ const FeedbackForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-lg shadow-lg">
-                <h2 className="text-lg font-bold mb-4">Your Feedback</h2>
+                <h2 className="text-lg font-bold mb-4 text-teal-600">We would love to hear from you! 😊</h2>
 
                 <form onSubmit={handleFeedbackSubmit}>
                     {[1, 2, 3].map(num => (
-                        <div key={num} className="mb-4">
+                        <div key={num} className="mb-4 text-custom-dark-orange font-medium">
                             <p>{responses[num].question}</p>
                             <label>
                                 <input
@@ -83,11 +83,11 @@ const FeedbackForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                     ))}
 
                     <div className="flex justify-between mt-4">
-                        <button type="submit" disabled={loading} className="p-2 bg-blue-500 text-white rounded">
+                        <button type="submit" disabled={loading} className="p-2 bg-teal-500 text-white rounded">
                             {loading ? 'Submitting...' : 'Submit'}
                         </button>
 
-                        <button type="button" onClick={onClose} className="p-2 bg-gray-300 text-black rounded">
+                        <button type="button" onClick={onClose} className="p-2 bg-gray-300 text-teal-500 rounded">
                             Cancel
                         </button>
                     </div>

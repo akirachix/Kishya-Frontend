@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ChevronUp, ChevronDown, Download, MessageSquare } from 'react-feather';
 import FeedbackButton from '../FeedbackButton';
-
+import { getFloodRiskClass } from '../../utils/floodRiskColors';
 
 interface InfoPanelProps {
   location: string;
   handleDownload: () => void;
   isSmallScreen: boolean;
   isPanelMinimized: boolean;
+  shouldPanelBeOpen: boolean; 
   handlePanelToggle:() => void;
   soilType: string;
   elevation: number;
@@ -31,6 +32,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
   floodRiskPercentage,
   additionalInfo,
   mapInfo,
+  shouldPanelBeOpen, 
 }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [isPanelMinimized, setIsPanelMinimized] = useState(true);
@@ -64,18 +66,21 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
     setIsPanelMinimized(!isPanelMinimized);
   };
 
+
+  useEffect(() => {
+    if (shouldPanelBeOpen) {
+      setIsPanelMinimized(false);  
+    }
+  }, [shouldPanelBeOpen]);
+
+
+  
   const defaultLandArea = mapInfo.totalLandArea || "N/A";
   const defaultAverageRainfall = mapInfo.averageAnnualRainfall || "N/A";
   const defaultDisclaimer = mapInfo.disclaimer || "No disclaimer available.";
 
 
-  const getFloodRiskClass = (percentage: number) => {
-    if (percentage <= 20) return 'text-low';
-    if (percentage <= 40) return 'text-moderate';
-    if (percentage <= 60) return 'text-high';
-    if (percentage <= 80) return 'text-very-high';
-    return 'text-extreme';
-  };
+
 
   const floodRiskClass = getFloodRiskClass(floodRiskPercentage);
 
@@ -88,25 +93,25 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
       flex flex-col 
       z-10 
     `} style={{ borderRadius: '20px' }}>
-     <div className={`bg-white rounded-[50px] p-4 flex justify-center items-center ${isSmallScreen ? 'h-[160px]' : 'h-[180px]'}`}>
+     <div className={`bg-teal-600 rounded-t-[15px] p-4 flex justify-center items-center ${isSmallScreen ? 'h-[160px]' : 'h-[180px]'}`}>
 
      <Image
-  src="/media/landvista.png" 
+  src="/media/whitelogo.png" 
   alt="LandVista Logo"
-  width={isSmallScreen ? (isPanelMinimized ? 200 : 80) : 90} 
+  width={isSmallScreen ? (isPanelMinimized ? 200 : 90) : 200} 
   height={isSmallScreen ? (isPanelMinimized ? 200 : 80) : 250}
   className="object-contain"
 />
       </div>
 
-      <div className={`bottom-0 rounded-b-none bg-teal-600 p-6 text-white flex-1 ${isSmallScreen && isPanelMinimized ? 'hidden' : ''} flex flex-col`}>
+      <div className={`bottom-0 rounded-b-none text-teal-600 p-6 bg-white flex-1 ${isSmallScreen && isPanelMinimized ? 'hidden' : ''} flex flex-col`}>
       
     <p className="text-lg mb-2 font-semibold">Location <br/> <span className="font-light">{location}</span></p>
 
     {location === "Nairobi" ? (
         <>
             <p className="text-lg mb-2 font-semibold text-justify">Total Land Area <br></br><span className="font-light">{defaultLandArea}</span></p>
-            <p className="text-lg mb-2 font-semibold text-justify">Average Rainfall <br></br> <span className="font-light">{defaultAverageRainfall}</span></p>
+            <p className="text-lg mb-2 font-semibold text-justify">Average Annual Rainfall <br></br> <span className="font-light">{defaultAverageRainfall}</span></p>
             <p className="text-lg mb-2 text-justify font-semibold ">Disclaimer <br></br><span className="font-light">{defaultDisclaimer}</span></p>
         </>
     ) : (
@@ -121,7 +126,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
 </div>
 
   {!isSmallScreen && (
- <div className={`mt-auto flex flex-col sm:flex-row justify-between p-4 ${isSmallScreen && isPanelMinimized ? 'hidden' : ''}`}>
+ <div className={`mt-auto flex flex-col sm:flex-row justify-between p-4 bg-teal-600 rounded-b-[15px] ${isSmallScreen && isPanelMinimized ? 'hidden' : ''}`}>
  <button onClick={handleDownload} className="bg-custom-dark-orange text-white px-4 py-2 rounded-full flex items-center justify-center">
    <Download size={20} className="mr-2" /> Download
  </button>
@@ -131,13 +136,13 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
      
 
       {isSmallScreen && (
-        <div className="fixed bottom-10 right-4 flex flex-col space-y-4">
+        <div className="fixed bottom-[200px] right-2 flex flex-col space-y-4">
           <div className="relative group">
             <button onClick={handlePanelToggle} className="w-12 h-12 rounded-full flex items-center justify-center bg-custom-teal text-white">
               {isPanelMinimized ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
             </button>
             <div className="absolute right-full bottom-1/2 transform -translate-y-1/2 w-max p-2 bg-gray-700 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {isPanelMinimized ? 'Click to open' : 'Click to close'}
+              {isPanelMinimized ? 'Tap to open' : 'Tap to close'}
             </div>
             
           </div>
@@ -156,12 +161,9 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
                 </button>
 
                 <div className="absolute right-full bottom-1/2 transform -translate-y-1/2 w-max p-2 bg-gray-700 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                Want to tell us anything? 
+                Want to tell us something? 
             </div>
             </div>
-          
-
-         
         </div>
       )}
     </div>
