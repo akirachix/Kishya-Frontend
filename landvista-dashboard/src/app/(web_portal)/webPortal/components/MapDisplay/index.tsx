@@ -34,7 +34,7 @@ interface FloodRiskData {
             northeast: { lat: number; lng: number };
         };
     };
-    mapInfo?: MapInfo; // Make mapInfo optional
+    mapInfo?: MapInfo; 
 }
 
 const MapDisplay = () => {
@@ -74,7 +74,7 @@ const MapDisplay = () => {
         setIsPanelMinimized(!isPanelMinimized);
     };
 
-    // hide & show UI elements
+  
     const hideUIElements = () => {
         document.getElementById('info-panel')?.classList.add('hidden');
         document.getElementById('search-bar')?.classList.add('hidden');
@@ -95,7 +95,7 @@ const MapDisplay = () => {
             return;
         }
 
-        // hide UI elements
+     
         hideUIElements();
 
         try {
@@ -123,7 +123,7 @@ const MapDisplay = () => {
                 }
             };
 
-            // Add dynamic content to the PDF (location info)
+           
             doc.setFontSize(12);
             doc.setFont("poppins", "normal");
             doc.text(`Location: ${locationInfo.location}`, 10, 130);
@@ -150,16 +150,16 @@ const MapDisplay = () => {
             console.error('Error creating PDF:', error);
             toast.error('Failed to download PDF. Please try again.');
         } finally {
-            // show UI elements again
+          
             showUIElements();
         }
     };
 
     const handleSearch = (location: string) => {
         setLocation(location);
-        setSearchError(''); // Clear any previous search errors
-        setShouldPanelBeOpen(true); // Automatically open the panel when a search happens
-        setIsPanelMinimized(false); // Ensure the panel isn't minimized when the search results are shown
+        setSearchError('');
+        setShouldPanelBeOpen(true);
+        setIsPanelMinimized(false); 
     };
     return (
         <div id="map" className="flex flex-col h-screen overflow-hidden">
@@ -190,7 +190,7 @@ const MapDisplay = () => {
                 handleDownload={handleDownload}
                 isSmallScreen={isSmallScreen}
                 isPanelMinimized={isPanelMinimized}
-                shouldPanelBeOpen={shouldPanelBeOpen} // Pass new prop
+                shouldPanelBeOpen={shouldPanelBeOpen} 
                 handlePanelToggle={handlePanelToggle}
                 loading={loading}
                 onOpenFeedback={handleOpenFeedbackForm}
