@@ -9,6 +9,7 @@ interface InfoPanelProps {
   handleDownload: () => void;
   isSmallScreen: boolean;
   isPanelMinimized: boolean;
+  shouldPanelBeOpen: boolean; 
   handlePanelToggle:() => void;
   soilType: string;
   elevation: number;
@@ -31,6 +32,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
   floodRiskPercentage,
   additionalInfo,
   mapInfo,
+  shouldPanelBeOpen, 
 }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [isPanelMinimized, setIsPanelMinimized] = useState(true);
@@ -64,6 +66,15 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
     setIsPanelMinimized(!isPanelMinimized);
   };
 
+
+  useEffect(() => {
+    if (shouldPanelBeOpen) {
+      setIsPanelMinimized(false);  // Open the panel when a location is searched
+    }
+  }, [shouldPanelBeOpen]); // Listen for prop change
+
+
+  
   const defaultLandArea = mapInfo.totalLandArea || "N/A";
   const defaultAverageRainfall = mapInfo.averageAnnualRainfall || "N/A";
   const defaultDisclaimer = mapInfo.disclaimer || "No disclaimer available.";
@@ -84,7 +95,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
       ${isSmallScreen ? 'rounded-b-none fixed bottom-0 left-0 right-0' : 'absolute top-20 left-4'}
       ${isSmallScreen ? (isPanelMinimized ? 'w-16 h-16 overflow-hidden' : 'w-full h-2/3 overflow-y-auto') : 'w-[400px] h-[830px] '} 
       bg-white rounded-[50px] shadow-lg
-      border-4 border-teal-600
+      border-2 border-teal-600
       flex flex-col 
       z-10 
     `} style={{ borderRadius: '20px' }}>

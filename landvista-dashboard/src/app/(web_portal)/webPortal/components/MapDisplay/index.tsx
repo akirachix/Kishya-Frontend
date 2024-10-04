@@ -41,9 +41,10 @@ const MapDisplay = () => {
     const [location, setLocation] = useState('');
     const { data, error, loading } = useFetchLocationData(location);
     const isSmallScreen = typeof window !== 'undefined' && window.innerWidth < 768;
-    const [isPanelMinimized, setIsPanelMinimized] = useState(false);
+    const [isPanelMinimized, setIsPanelMinimized] = useState(true);
     const [isFeedbackFormVisible, setFeedbackFormVisible] = useState(false);
     const [searchError, setSearchError] = useState('');
+    const [shouldPanelBeOpen, setShouldPanelBeOpen] = useState(false);
 
   
     useEffect(() => {
@@ -157,8 +158,9 @@ const MapDisplay = () => {
     const handleSearch = (location: string) => {
         setLocation(location);
         setSearchError(''); // Clear any previous search errors
+        setShouldPanelBeOpen(true); // Automatically open the panel when a search happens
+        setIsPanelMinimized(false); // Ensure the panel isn't minimized when the search results are shown
     };
-
     return (
         <div id="map" className="flex flex-col h-screen overflow-hidden">
             <h1>Flood Risk Information</h1>
@@ -188,6 +190,7 @@ const MapDisplay = () => {
                 handleDownload={handleDownload}
                 isSmallScreen={isSmallScreen}
                 isPanelMinimized={isPanelMinimized}
+                shouldPanelBeOpen={shouldPanelBeOpen} // Pass new prop
                 handlePanelToggle={handlePanelToggle}
                 loading={loading}
                 onOpenFeedback={handleOpenFeedbackForm}

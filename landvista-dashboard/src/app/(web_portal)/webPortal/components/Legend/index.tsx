@@ -8,7 +8,7 @@ interface FloodRiskLegendProps {
 const FloodRiskLegend: React.FC<FloodRiskLegendProps> = ({ isSmallScreen }) => {
   return (
    <div id="legend" className={`
-        ${isSmallScreen ? 'fixed  top-[130px] right-4 absolute' : 'absolute top-[600px] right-4'}
+        ${isSmallScreen ? 'fixed  top-[150px] right-4 absolute' : 'absolute top-[600px] right-4'}
         
          bg-white p-2 rounded-lg shadow-lg 
       `} >
