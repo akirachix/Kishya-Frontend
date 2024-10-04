@@ -142,13 +142,13 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
      
 
       {isSmallScreen && (
-        <div className="fixed bottom-10 right-4 flex flex-col space-y-4">
+        <div className="fixed bottom-[200px] right-2 flex flex-col space-y-4">
           <div className="relative group">
             <button onClick={handlePanelToggle} className="w-12 h-12 rounded-full flex items-center justify-center bg-custom-teal text-white">
               {isPanelMinimized ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
             </button>
             <div className="absolute right-full bottom-1/2 transform -translate-y-1/2 w-max p-2 bg-gray-700 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {isPanelMinimized ? 'Click to open' : 'Click to close'}
+              {isPanelMinimized ? 'Tap to open' : 'Tap to close'}
             </div>
             
           </div>
@@ -167,12 +167,9 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
                 </button>
 
                 <div className="absolute right-full bottom-1/2 transform -translate-y-1/2 w-max p-2 bg-gray-700 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                Want to tell us anything? 
+                Want to tell us something? 
             </div>
             </div>
-          
-
-         
         </div>
       )}
     </div>
