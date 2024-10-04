@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ChevronUp, ChevronDown, Download, MessageSquare } from 'react-feather';
 import FeedbackButton from '../FeedbackButton';
-
+import { getFloodRiskClass } from '../../utils/floodRiskColors';
 
 interface InfoPanelProps {
   location: string;
@@ -80,13 +80,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
   const defaultDisclaimer = mapInfo.disclaimer || "No disclaimer available.";
 
 
-  const getFloodRiskClass = (percentage: number) => {
-    if (percentage <= 20) return 'text-low';
-    if (percentage <= 40) return 'text-moderate';
-    if (percentage <= 60) return 'text-high';
-    if (percentage <= 80) return 'text-very-high';
-    return 'text-extreme';
-  };
+
 
   const floodRiskClass = getFloodRiskClass(floodRiskPercentage);
 

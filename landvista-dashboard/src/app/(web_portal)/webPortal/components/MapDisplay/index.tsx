@@ -34,7 +34,7 @@ interface FloodRiskData {
             northeast: { lat: number; lng: number };
         };
     };
-    mapInfo?: MapInfo; 
+    mapInfo?: MapInfo; // Make mapInfo optional
 }
 
 const MapDisplay = () => {
@@ -45,7 +45,7 @@ const MapDisplay = () => {
     const [isFeedbackFormVisible, setFeedbackFormVisible] = useState(false);
     const [searchError, setSearchError] = useState('');
     const [shouldPanelBeOpen, setShouldPanelBeOpen] = useState(false);
-
+    const floodRiskPercentage = data?.risk_percentage || 0;
   
     useEffect(() => {
         if (searchError) {
@@ -74,7 +74,7 @@ const MapDisplay = () => {
         setIsPanelMinimized(!isPanelMinimized);
     };
 
-    
+    // hide & show UI elements
     const hideUIElements = () => {
         document.getElementById('info-panel')?.classList.add('hidden');
         document.getElementById('search-bar')?.classList.add('hidden');
@@ -123,7 +123,7 @@ const MapDisplay = () => {
                 }
             };
 
-        
+            // Add dynamic content to the PDF (location info)
             doc.setFontSize(12);
             doc.setFont("poppins", "normal");
             doc.text(`Location: ${locationInfo.location}`, 10, 130);
@@ -150,16 +150,16 @@ const MapDisplay = () => {
             console.error('Error creating PDF:', error);
             toast.error('Failed to download PDF. Please try again.');
         } finally {
-           
+            // show UI elements again
             showUIElements();
         }
     };
 
     const handleSearch = (location: string) => {
         setLocation(location);
-        setSearchError(''); 
-        setShouldPanelBeOpen(true); 
-        setIsPanelMinimized(false); 
+        setSearchError(''); // Clear any previous search errors
+        setShouldPanelBeOpen(true); // Automatically open the panel when a search happens
+        setIsPanelMinimized(false); // Ensure the panel isn't minimized when the search results are shown
     };
     return (
         <div id="map" className="flex flex-col h-screen overflow-hidden">
@@ -169,7 +169,7 @@ const MapDisplay = () => {
                     <SearchBar onSearch={handleSearch} onError={setSearchError} />
                     {loading && (
                         <p className="fixed top-35 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white p-2 rounded shadow-lg z-50">
-                            Loading...
+                            Searching...
                         </p>
                     )}
                 </div>
@@ -190,13 +190,13 @@ const MapDisplay = () => {
                 handleDownload={handleDownload}
                 isSmallScreen={isSmallScreen}
                 isPanelMinimized={isPanelMinimized}
-                shouldPanelBeOpen={shouldPanelBeOpen} 
+                shouldPanelBeOpen={shouldPanelBeOpen} // Pass new prop
                 handlePanelToggle={handlePanelToggle}
                 loading={loading}
                 onOpenFeedback={handleOpenFeedbackForm}
             />
 
-            <MapComponent
+<MapComponent
                 locations={data?.geometry?.location ? [data.geometry.location] : []}
                 center={{
                     lat: data?.geometry?.location?.lat || -1.286389,
@@ -205,14 +205,17 @@ const MapDisplay = () => {
                 zoom={12}
                 isSmallScreen={isSmallScreen}
                 boundary={data?.geometry?.bounds ? [
-                    { lat: data.geometry.bounds.southwest.lat, lng: data.geometry.bounds.southwest.lng }, 
-                    { lat: data.geometry.bounds.southwest.lat, lng: data.geometry.bounds.northeast.lng }, 
-                    { lat: data.geometry.bounds.northeast.lat, lng: data.geometry.bounds.northeast.lng }, 
-                    { lat: data.geometry.bounds.northeast.lat, lng: data.geometry.bounds.southwest.lng }, 
+                    { lat: data.geometry.bounds.southwest.lat, lng: data.geometry.bounds.southwest.lng },
+                    { lat: data.geometry.bounds.southwest.lat, lng: data.geometry.bounds.northeast.lng },
+                    { lat: data.geometry.bounds.northeast.lat, lng: data.geometry.bounds.northeast.lng },
+                    { lat: data.geometry.bounds.northeast.lat, lng: data.geometry.bounds.southwest.lng },
                 ] : []}
-                searchLocation={location || ""} 
-            />
+                searchedLocation={data?.geometry?.location}
+                floodRiskPercentage={floodRiskPercentage} 
+                searchLocation={''}            />
             <FloodRiskLegend id="legend" isSmallScreen={isSmallScreen} />
+
+            
             <ToastContainer 
                 position="top-right" 
                 autoClose={5000} 
