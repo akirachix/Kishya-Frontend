@@ -69,9 +69,9 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
 
   useEffect(() => {
     if (shouldPanelBeOpen) {
-      setIsPanelMinimized(false);  // Open the panel when a location is searched
+      setIsPanelMinimized(false);  
     }
-  }, [shouldPanelBeOpen]); // Listen for prop change
+  }, [shouldPanelBeOpen]);
 
 
   

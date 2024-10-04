@@ -5,9 +5,9 @@ interface SearchBarProps {
     onError: (error: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onError }) => { // Include onError here
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onError }) => { 
     const [input, setInput] = useState('');
-    const [isSmallScreen, setIsSmallScreen] = useState(false); // Initialize as false
+    const [isSmallScreen, setIsSmallScreen] = useState(false); 
 
     useEffect(() => {
         const handleResize = () => {
@@ -23,9 +23,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onError }) => { // Incl
         e.preventDefault();
         if (input.trim()) {
             onSearch(input.trim());
-            onError(''); // Clear previous errors
+            onError(''); 
         } else {
-            onError('Location is required.'); // Show error if input is empty
+            onError('Location is required.'); 
         }
     };
 
