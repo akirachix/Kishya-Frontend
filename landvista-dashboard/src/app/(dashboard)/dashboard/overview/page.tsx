@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Layout from '../components/Layout';
 import {
    BarChart,
@@ -45,8 +45,8 @@ const MetricCard: React.FC<MetricCardProps> = ({ value, label }) => (
 
 
 const Dashboard = () => {
-   const [data, setData] = useState(DATA);
-   const [loading, setLoading] = useState(false);
+    const [data] = useState(DATA);  // `data` is static, no need for `setData` or `loading`
+
 
 
    return (
@@ -94,11 +94,12 @@ const Dashboard = () => {
                    <div className="bg-white p-4 rounded-[30px] shadow border-2 border-custom-orange w-full sm:w-[300px] xl:h-[500px] font-poppins">
                        <h2 className="font-bold mb-2 text-black text-xl">Overview</h2>
                        <p className="text-lg text-black leading-snug pb-4 nesthubmax:text-sm nesthubmax:pb-5 nesthubmax:w-[500px]">
-                           The dashboard offers a clear view of key metrics: total downloads,
-                           reflecting the application's adoption rate; shares, indicating how often
-                           users recommend or distribute the app; and user feedback, summarized
-                           through ratings and comments.
-                       </p>
+   The dashboard offers a clear view of key metrics: total downloads,
+   reflecting the application&apos;s adoption rate; shares, indicating how often
+   users recommend or distribute the app; and user feedback, summarized
+   through ratings and comments.
+</p>
+
                    </div>
                </div>
                <div className="mt-6 flex justify-center lg:justify-start ml-8">

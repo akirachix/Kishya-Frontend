@@ -25,15 +25,15 @@ interface SearchBarProps {
 
 
     useEffect(() => {
-        if (input.trim()){
+        if (input.trim()) {
             const filtered = locations.filter(location =>
                 location.toLowerCase().includes(input.toLowerCase())
             );
             setFilteredSuggestions(filtered);
-        } else{
+        } else {
             setFilteredSuggestions([]);
         }
-    }, [input])
+    }, [input]);  
 
 
     const handleSubmit = (e: React.FormEvent) => {

@@ -10,7 +10,7 @@ import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import FeedbackForm from '../FeedbackForm';
 import 'react-toastify/dist/ReactToastify.css'; 
-import { FloodRiskData, MapInfo } from '../../hooks/useFloodRiskData';
+import { FloodRiskData } from '../../hooks/useFloodRiskData';
 import { getMarkerColor } from '../../utils/floodRiskColors';
 
 
