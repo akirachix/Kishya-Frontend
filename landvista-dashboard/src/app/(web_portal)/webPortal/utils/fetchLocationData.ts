@@ -7,7 +7,7 @@ export const fetchLocationData = async (location: string) => {
      
         if (!response.ok) {
             if (response.status === 404) {
-                throw new Error('Location not found. Please try a different location.');
+                throw new Error('Oops! It seems like the location is not available now. Try one of these instead: Jamhuri, Kitisuru, Roysambu, or Kibera');
             } else {
                 throw new Error('Failed to fetch data. Please try again later.');
             }

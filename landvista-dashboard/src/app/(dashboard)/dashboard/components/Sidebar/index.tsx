@@ -18,7 +18,7 @@ const SidebarNav = () => {
   );
 
   return (
-    <div className="fixed top-0 left-0 w-64 h-screen bg-[#006E6D] text-white p-6 flex flex-col justify-between">
+    <div className="fixed top-0 left-0 w-64 h-screen bg-[#006E6D] text-white p-6 flex flex-col justify-between mr-28">
       <div>
         <div className="flex flex-col items-center mb-8">
           <Image src="/media/landvista-logo.png" alt="LandVista Logo" width={100} height={100} className="h-auto" />
@@ -27,7 +27,7 @@ const SidebarNav = () => {
 
         <nav>
           <ul className="space-y-6">
-            <SidebarItem Icon={FaTachometerAlt} label="Dashboard" path="" isActive={false} />
+            <SidebarItem Icon={FaTachometerAlt} label="Dashboard" path="/dashboard/overview" isActive={false} />
             <SidebarItem Icon={FaBullseye} label="Data Accuracy" path="/dashboard/model-accuracy" isActive={false} />
             <SidebarItem Icon={FaThumbsUp} label="User Feedback" path="/dashboard/Feedback" isActive={false} />
             
