@@ -1,30 +1,38 @@
-
 import { useState, useEffect } from 'react';
 import { FloodRiskData } from './useFloodRiskData';
 
-export const useFetchLocationData = (location: string) => {
+export const useFetchLocationData = (location: string, searchAttempted: boolean) => {
     const [data, setData] = useState<FloodRiskData | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+    const [waitMessage, setWaitMessage] = useState<string | null>(null)
 
     useEffect(() => {
-      
-            if (!location) {
+        if (!location) {
+            if (searchAttempted) {
                 setError('Location is required.');
-                setData(null)
-                setLoading(false)
-                return;
-            } 
+            }
+            setData(null);
+            setLoading(false);
+            setWaitMessage(null);
+            return;
+        }
         
         const fetchData = async () => {
             setLoading(true);
             setError(null);
+            setWaitMessage(null);
+
+
+            const timer = setTimeout(() => {
+                setWaitMessage('Fetching location is taking longer than expected. Please wait a little longer...')
+            }, 3000)
             try {
                 const response = await fetch(`/api/inputLocation?location=${location}/`);
           
                 if (!response.ok) {
                     if (response.status === 404) {
-                        throw new Error('Location not found. Please try a different location.');
+                        throw new Error('Oops! It seems like the location is not available now. Try one of these instead: Jamhuri, Kitisuru, Roysambu, or Kibera');
                     } else {
                         throw new Error('Failed to fetch data. Please try again later.');
                     }
@@ -41,13 +49,15 @@ export const useFetchLocationData = (location: string) => {
                 }
             } finally {
                 setLoading(false);
+                clearTimeout(timer);
+                setWaitMessage(null);
             }
         };
 
         fetchData();
-    }, [location]);
+    }, [location, searchAttempted]);
 
-    return { data, error, loading };
+    return { data, error, loading, waitMessage };
 };
 
 

@@ -78,7 +78,7 @@ const Feedback = () => {
           <div className="w-64 py-2 flex flex-col space-y-4 ml-28">
           <div className="p-6 border-4 border-[#CC8C6B] rounded-[30px] bg-gray-100 w-full  mx-auto ml-12"> 
   <h4 className="text-xl font-bold mb-4  font-family: 'Poppins'">Legend:</h4>
-  <div className="space-y-4">
+  <div className="space-y-4 w-60 p-4">
     <p className="text-base">
       <span className="font-semibold  font-family: 'Poppins'">Question 1: </span>
       Would you recommend our services to friends and family?

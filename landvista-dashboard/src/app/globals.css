@@ -19,3 +19,12 @@
 .text-extreme { color: darkred; }
  
 
+/* styles.css */
+.select-hover:hover {
+  border-color: #C56E2E; /* Dark orange color */
+  background-color: #FFEDD5; /* Light background color on hover */
+  color: #C56E2E; /* Text color on hover */
+}
+
+
+
