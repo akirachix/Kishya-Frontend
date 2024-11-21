@@ -109,7 +109,7 @@ const MapDisplay = () => {
         doc.setFontSize(14);
         const description = `LandVista provides reliable flood risk data and analytics to support informed decision-making. Our platform offers insights on seasonal risks, soil types, elevation, and more to help individuals and organizations assess flood vulnerability in their areas of interest.`;
         const descriptionLines = doc.splitTextToSize(description, 180);
-        let currentY = 140;
+        const currentY = 140;
         descriptionLines.forEach((line: string, index: number) => {
             const lineWidth = doc.getStringUnitWidth(line) * doc.getFontSize() / doc.internal.scaleFactor;
             const lineX = (pageWidth - lineWidth) / 2;
@@ -122,7 +122,7 @@ const MapDisplay = () => {
 
         doc.setFontSize(12);
 
-        const dateWidth = doc.getStringUnitWidth(dateStr) * doc.getFontSize() / doc.internal.scaleFactor;
+        // const dateWidth = doc.getStringUnitWidth(dateStr) * doc.getFontSize() / doc.internal.scaleFactor;
         const timeWidth = doc.getStringUnitWidth(timeStr) * doc.getFontSize() / doc.internal.scaleFactor;
 
         const leftMargin = 10;
@@ -159,7 +159,7 @@ const MapDisplay = () => {
         doc.setTextColor(40); 
         doc.setFont("poppins", "italic"); 
 
-        let disclaimerY = currentY + (descriptionLines.length * 10) + 40;
+        const disclaimerY = currentY + (descriptionLines.length * 10) + 40;
 
         disclaimerLines.forEach((line: string, index: number) => {
             const lineY = disclaimerY + (index * 10); 
