@@ -126,7 +126,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
         
          <div className="p-6 rounded-xl shadow-2xl h-[25px] max-w-3xl mx-auto flex items-center justify-center bg-gradient-to-r from-blue-100 via-teal-200 to-green-100">
   <p className="text-[25px] font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-teal-500 to-green-400 text-center leading-tight shadow-lg">
-    <span className="inline-block animate-typewriter">We Lead,</span> 
+    <span className="inline-block animate-typewriter">We Lead, </span>
     <span className="inline-block animate-typewriter"> Safety Follows</span>
   </p>
 </div>
