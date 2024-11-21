@@ -5,11 +5,11 @@ import { useFetchLocationData } from '../../hooks/useFetchLocationData';
 import FloodRiskLegend from '../Legend';
 import MapComponent from '../MapComponent';
 import InfoPanel from '../InfoPanel';
-import { ToastContainer, toast } from 'react-toastify'; 
+import { ToastContainer, toast } from 'react-toastify';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import FeedbackForm from '../FeedbackForm';
-import 'react-toastify/dist/ReactToastify.css'; 
+import 'react-toastify/dist/ReactToastify.css';
 import { FloodRiskData } from '../../hooks/useFloodRiskData';
 import { getMarkerColor } from '../../utils/floodRiskColors';
 
@@ -28,7 +28,7 @@ const MapDisplay = () => {
     const [selectedSeason, setSelectedSeason] = useState<'short_rains' | 'long_rains' | 'long_dry_season' | 'short_dry_season'>('short_rains');
 
 
-  
+
     useEffect(() => {
         if (searchError) {
             toast.error(searchError);
@@ -40,7 +40,7 @@ const MapDisplay = () => {
         if (error) {
             toast.error(error);
         }
-    }, [error]); 
+    }, [error]);
 
 
 
@@ -56,7 +56,7 @@ const MapDisplay = () => {
         setIsPanelMinimized(!isPanelMinimized);
     };
 
-  
+
     const hideUIElements = () => {
         document.getElementById('info-panel')?.classList.add('hidden');
         document.getElementById('search-bar')?.classList.add('hidden');
@@ -71,9 +71,119 @@ const MapDisplay = () => {
 
 
 
-    
+
     const handleDownload = async () => {
         const doc = new jsPDF();
+
+        doc.setFont("poppins", "normal");
+
+
+        const pageWidth = doc.internal.pageSize.width;
+        const pageHeight = doc.internal.pageSize.height;
+
+        const brandPrimaryColor = "#008080";
+        const brandSecondaryColor = "#D0E6F7";
+
+        doc.setFillColor(brandSecondaryColor);
+        doc.rect(0, 0, pageWidth, 50, 'F');
+
+        doc.setFont("poppins", "bold");
+        doc.setFontSize(30);
+        const title = "LandVista Flood Risk Report";
+
+        doc.setTextColor(brandPrimaryColor);
+        const titleWidth = doc.getStringUnitWidth(title) * doc.getFontSize() / doc.internal.scaleFactor;
+        const titleX = (pageWidth - titleWidth) / 2;
+        doc.text(title, titleX, 40);
+
+        doc.setTextColor(0)
+
+        const logoUrl = "/media/landvista.png";
+        const logoWidth = 50;
+        const logoHeight = 50;
+        const logoX = (pageWidth - logoWidth) / 2;
+        doc.addImage(logoUrl, 'PNG', logoX, 60, logoWidth, logoHeight);
+
+
+        doc.setFont("poppins", "normal");
+        doc.setFontSize(14);
+        const description = `LandVista provides reliable flood risk data and analytics to support informed decision-making. Our platform offers insights on seasonal risks, soil types, elevation, and more to help individuals and organizations assess flood vulnerability in their areas of interest.`;
+        const descriptionLines = doc.splitTextToSize(description, 180);
+        let currentY = 140;
+        descriptionLines.forEach((line: string, index: number) => {
+            const lineWidth = doc.getStringUnitWidth(line) * doc.getFontSize() / doc.internal.scaleFactor;
+            const lineX = (pageWidth - lineWidth) / 2;
+            doc.text(line, lineX, currentY + (index * 10));
+        });
+
+        const currentDate = new Date();
+        const dateStr = currentDate.toLocaleDateString();
+        const timeStr = currentDate.toLocaleTimeString();
+
+        doc.setFontSize(12);
+
+        const dateWidth = doc.getStringUnitWidth(dateStr) * doc.getFontSize() / doc.internal.scaleFactor;
+        const timeWidth = doc.getStringUnitWidth(timeStr) * doc.getFontSize() / doc.internal.scaleFactor;
+
+        const leftMargin = 10;
+        const rightMargin = pageWidth - timeWidth - 23;
+
+        doc.setFont("poppins", "bold");
+        doc.setTextColor("#008080")
+        doc.text("Report Date:", leftMargin, currentY + (descriptionLines.length * 10) + 20);
+
+        
+        doc.setTextColor(0)
+        doc.setFont("poppins", "normal");
+        doc.text(dateStr, leftMargin + doc.getStringUnitWidth("Report Date: ") * doc.getFontSize() / doc.internal.scaleFactor + 5, currentY + (descriptionLines.length * 10) + 20);
+
+        doc.setTextColor("#008080")
+        doc.setFont("poppins", "bold");
+        doc.text("Time:", rightMargin - doc.getStringUnitWidth("Time: ") * doc.getFontSize() / doc.internal.scaleFactor, currentY + (descriptionLines.length * 10) + 20);
+
+
+        doc.setTextColor(0)
+        doc.setFont("poppins", "normal");
+        doc.text(timeStr, rightMargin, currentY + (descriptionLines.length * 10) + 20);
+
+
+        doc.setLineWidth(0.5);
+        doc.setDrawColor(brandPrimaryColor);
+        doc.line(10, 190, pageWidth - 10, 190);
+
+        const disclaimer = `Disclaimer: LandVista provides general flood risk guidance based on current data. For critical property decisions, consult qualified local experts. This information does not replace professional surveys or guarantee outcomes. Use responsibly and exercise personal judgment when making important decisions.`;
+
+        const disclaimerLines = doc.splitTextToSize(disclaimer, 180);
+
+        doc.setFontSize(13);
+        doc.setTextColor(40); 
+        doc.setFont("poppins", "italic"); 
+
+        let disclaimerY = currentY + (descriptionLines.length * 10) + 40;
+
+        disclaimerLines.forEach((line: string, index: number) => {
+            const lineY = disclaimerY + (index * 10); 
+            const lineWidth = doc.getStringUnitWidth(line) * doc.getFontSize() / doc.internal.scaleFactor;
+            const lineX = (pageWidth - lineWidth) / 2; 
+
+            doc.text(line, lineX, lineY);
+        });
+
+        doc.setFont("poppins", "italic", "bold");
+        doc.setFontSize(20);
+        const slogan = "We Lead, Safety Follows";
+        doc.setTextColor(brandPrimaryColor);
+        const sloganWidth = doc.getStringUnitWidth(slogan) * doc.getFontSize() / doc.internal.scaleFactor;
+        const sloganX = (pageWidth - sloganWidth) / 2; 
+        const sloganY = pageHeight - 40;  
+        doc.text(slogan, sloganX, sloganY);
+
+
+        doc.setTextColor(0)
+
+        doc.addPage();
+
+
         const mapElement = document.getElementById('map');
         if (!mapElement) {
             toast.error('Map not found for download.');
@@ -86,23 +196,22 @@ const MapDisplay = () => {
             document.getElementById('info-panel'),
             document.getElementById('legend')
         ];
-    
+
         uiElements.forEach(element => {
             if (element) {
                 element.style.display = 'none';
             }
         });
-    
-     
+
+
         hideUIElements();
 
         try {
-            const canvas = await html2canvas(mapElement, { useCORS: true, scale:2});
+            const canvas = await html2canvas(mapElement, { useCORS: true, scale: 2 });
             const imgData = canvas.toDataURL('image/png');
             doc.addImage(imgData, 'PNG', 10, 10, 180, (180 * canvas.height) / canvas.width);
             doc.setFont("poppins", "bold");
             doc.setFontSize(16);
-            doc.text('Flood Risk Information', 10, 120);
 
             const locationInfo: FloodRiskData = data || {
                 location: "",
@@ -139,11 +248,11 @@ const MapDisplay = () => {
             let currentY = textStartY;
 
             doc.text(`Location: ${locationInfo.location}`, 10, currentY);
-            currentY += 10; // Move down for the next line
+            currentY += 10; 
             doc.text(`Soil Type: ${locationInfo.soil_type}`, 10, currentY);
             currentY += 10;
             doc.text(`Elevation: ${locationInfo.elevation} meters`, 10, currentY);
-            currentY += 15; 
+            currentY += 15;
 
             const seasons: Array<'short_rains' | 'long_rains' | 'long_dry_season' | 'short_dry_season'> = ['short_rains', 'long_rains', 'long_dry_season', 'short_dry_season'];
 
@@ -151,40 +260,88 @@ const MapDisplay = () => {
                 const riskPercentage = locationInfo.risk_percentage[season];
                 const riskCategory = locationInfo.seasonal_information[season].risk_category;
                 const additionalInfo = locationInfo.seasonal_information[season].additional_information;
-                
+
                 doc.text(`${season.replace(/_/g, ' ').toUpperCase()}:`, 10, currentY);
                 const markerColor = getMarkerColor(riskPercentage);
-                doc.setTextColor(markerColor); 
+                doc.setTextColor(markerColor);
 
                 doc.text(`Risk Percentage: ${riskPercentage}%`, 10, currentY + 10);
                 doc.setTextColor(0);
-                
+
                 const riskCategoryColor = getMarkerColor(riskPercentage);
                 doc.setTextColor(riskCategoryColor);
                 doc.text(`Risk Category: ${riskCategory}`, 10, currentY + 20);
-                doc.setTextColor(0); 
-    
+                doc.setTextColor(0);
+
                 const additionalInfoLines = doc.splitTextToSize(additionalInfo, 180);
                 additionalInfoLines.forEach((line: string, index: number) => {
                     doc.text(line, 10, currentY + 30 + (index * 10));
                 });
-    
-                currentY += 30 + (additionalInfoLines.length * 10); 
 
-             if (currentY > 250) {
-                doc.addPage();
-                currentY = 20; 
-            }
-        });
+                currentY += 30 + (additionalInfoLines.length * 10);
 
-        doc.setFontSize(13);
-        doc.setTextColor(40);
-        const disclaimerLines = doc.splitTextToSize(locationInfo.mapInfo?.disclaimer || "Disclaimer: LandVista provides general flood risk guidance based on current data. For critical property decisions, consult qualified local experts. This information does not replace professional surveys or guarantee outcomes. Use responsibly and exercise personal judgment when making important decisions.", 180);
-        disclaimerLines.forEach((line: string, index: number) => {
-            doc.text(line, 10, currentY + (index * 10));
-        });
+                if (currentY > 250) {
+                    doc.addPage();
+                    currentY = 20;
+                }
+            });
 
-            doc.save('Kishya Flood Risk Report.pdf');
+            doc.addPage();
+
+            doc.setFont("poppins", "bold");
+            doc.setFontSize(18);
+             doc.setTextColor(brandPrimaryColor);
+            doc.text("Contact Us", pageWidth / 2 - 30, 30); 
+           
+
+            doc.setFont("poppins", "normal");
+            doc.setFontSize(12);
+            doc.setTextColor(0);
+
+
+            const emailTitle = "Email:";
+            const emailContent = "kishya@gmail.com";
+            doc.setFont("poppins", "bold");
+            doc.text(emailTitle, 10, 50);
+            doc.setFont("poppins", "normal");
+            doc.text(emailContent, 10, 60);
+
+
+            const phoneTitle = "Phone:";
+            const phoneContent = "(+256) 787 635 823 / (+254) 759 404 025";
+            doc.setFont("poppins", "bold");
+            doc.text(phoneTitle, 10, 80);
+            doc.setFont("poppins", "normal");
+            doc.text(phoneContent, 10, 90);
+
+        
+            const websiteTitle = "Website:";
+            const websiteContent = "https://landvista-informationalwebsite.vercel.app/";
+            doc.setFont("poppins", "bold");
+            doc.text(websiteTitle, 10, 110);
+            doc.setFont("poppins", "normal");
+            doc.text(websiteContent, 10, 120);
+
+            doc.setLineWidth(0.5);
+            doc.setDrawColor(brandPrimaryColor);
+            doc.line(10, 135, pageWidth - 10, 135); 
+
+
+
+            doc.setFont("poppins", "italic", "bold");
+            doc.setFontSize(20);
+
+            doc.setFont("poppins", "italic", "bold");
+            doc.setFontSize(20);
+            const slogan = "We Lead, Safety Follows";
+            doc.setTextColor(brandPrimaryColor);
+            const sloganWidth = doc.getStringUnitWidth(slogan) * doc.getFontSize() / doc.internal.scaleFactor;
+            const sloganX = (pageWidth - sloganWidth) / 2; 
+            const sloganY = pageHeight - 40;  
+            doc.text(slogan, sloganX, sloganY);
+
+
+            doc.save('LandVista Flood Risk Report.pdf');
             toast.success('PDF downloaded successfully!');
         } catch (error) {
             console.error('Error creating PDF:', error);
@@ -192,18 +349,20 @@ const MapDisplay = () => {
         } finally {
             uiElements.forEach(element => {
                 if (element) {
-                    element.style.display = ''; 
+                    element.style.display = '';
                 }
             });
             showUIElements();
         }
+
+
     };
 
     const handleSearch = (location: string) => {
         setLocation(location);
         setSearchError('');
         setShouldPanelBeOpen(true);
-        setIsPanelMinimized(false); 
+        setIsPanelMinimized(false);
         setSearchAttempted(true);
     };
 
@@ -222,10 +381,10 @@ const MapDisplay = () => {
                 </div>
 
                 <div className="flex space-x-4">
-             </div>
-             </div>
+                </div>
+            </div>
 
-       
+
             <InfoPanel
                 location={data?.location || "Nairobi"}
                 soilType={data?.soil_type || "Nitisols"}
@@ -240,7 +399,7 @@ const MapDisplay = () => {
                 handleDownload={handleDownload}
                 isSmallScreen={isSmallScreen}
                 isPanelMinimized={isPanelMinimized}
-                shouldPanelBeOpen={shouldPanelBeOpen} 
+                shouldPanelBeOpen={shouldPanelBeOpen}
                 handlePanelToggle={handlePanelToggle}
                 selectedSeason={selectedSeason}
                 setSelectedSeason={setSelectedSeason}
@@ -248,41 +407,41 @@ const MapDisplay = () => {
                 onOpenFeedback={handleOpenFeedbackForm}
             />
 
-<MapComponent
-      locations={data?.geometry?.location ? [data.geometry.location] : []}
-      center={{
-          lat: data?.geometry?.location?.lat || -1.286389,
-          lng: data?.geometry?.location?.lng || 36.817223,
-      }}
-      zoom={12}
-      isSmallScreen={isSmallScreen}
-      boundary={data?.geometry?.bounds ? [
-          { lat: data.geometry.bounds.southwest.lat, lng: data.geometry.bounds.southwest.lng },
-          { lat: data.geometry.bounds.southwest.lat, lng: data.geometry.bounds.northeast.lng },
-          { lat: data.geometry.bounds.northeast.lat, lng: data.geometry.bounds.northeast.lng },
-          { lat: data.geometry.bounds.northeast.lat, lng: data.geometry.bounds.southwest.lng },
-      ] : []}
-      searchedLocation={data?.geometry?.location}
-      floodRiskPercentage={data?.risk_percentage[selectedSeason] || 0}
-      viewport={data?.geometry?.viewport} 
-      searchLocation={''}            
-/>
+            <MapComponent
+                locations={data?.geometry?.location ? [data.geometry.location] : []}
+                center={{
+                    lat: data?.geometry?.location?.lat || -1.286389,
+                    lng: data?.geometry?.location?.lng || 36.817223,
+                }}
+                zoom={12}
+                isSmallScreen={isSmallScreen}
+                boundary={data?.geometry?.bounds ? [
+                    { lat: data.geometry.bounds.southwest.lat, lng: data.geometry.bounds.southwest.lng },
+                    { lat: data.geometry.bounds.southwest.lat, lng: data.geometry.bounds.northeast.lng },
+                    { lat: data.geometry.bounds.northeast.lat, lng: data.geometry.bounds.northeast.lng },
+                    { lat: data.geometry.bounds.northeast.lat, lng: data.geometry.bounds.southwest.lng },
+                ] : []}
+                searchedLocation={data?.geometry?.location}
+                floodRiskPercentage={data?.risk_percentage[selectedSeason] || 0}
+                viewport={data?.geometry?.viewport}
+                searchLocation={''}
+            />
 
 
-                
+
             <FloodRiskLegend id="legend" isSmallScreen={isSmallScreen} />
 
-            
-            <ToastContainer 
-                position="top-right" 
-                autoClose={2000} 
-                hideProgressBar={false} 
-                newestOnTop={false} 
-                closeOnClick 
-                rtl={false} 
-                pauseOnFocusLoss 
-                draggable 
-                pauseOnHover 
+
+            <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
                 className="fixed top-4 right-4 z-50"
             />
             {isFeedbackFormVisible && <FeedbackForm onClose={handleCloseFeedbackForm} />}
